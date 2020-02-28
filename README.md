@@ -8,7 +8,16 @@ Tenha instalado o Docker na sua máquina.
 
 Dentro da pasta 'front' e depois dentro da pasta 'back', rode no terminal o comando 'yarn' ou 'npm' para baixar as dependências do projeto.
 
-No terminal, rode o comando 'docker import "caminho do arquivo do banco" "novo nome do banco"' para importar o arquivo de banco de dados. Depois rode o comando 'docker start "nome do arquivo de banco de dados" '. 
+No terminal, rode o comando 'docker import "caminho do arquivo do banco" "novo nome do banco"' para importar o arquivo de banco de dados. Depois rode o comando 'docker start "nome do arquivo de banco de dados" '.
+
+Acesse o banco de dados pelo Postbird e com as credenciais: 
+- Host: localhost, 
+- Port: 5432, 
+- Password:root
+
+E crie a database 'trinca'; 
+
+Rode no terminal 'yarn sequelize db:migrate' para subir as tabelas do banco de dados; 
 
 
 # Rodando os servidores
