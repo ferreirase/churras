@@ -17,13 +17,15 @@ Crie a database 'trinca' no seu banco de dados, ou informe no campo 'database' d
 # Criando as tabelas no Banco de Dados 
 Depois de instalar as dependências todas, entre na pasta 'back', abra o terminal e rode o comando 'yarn sequelize db:migrate' para o Sequelize subir as migrations de criação das tabelas;
 
+Após esse passo, rode no terminal o comando 'yarn sequelize db:seed:all' para o Sequelize subir todas as seeders e criar o usuário Admin. 
+
 
 # Rodando os servidores
 
-Dentro da pasta 'front' e depois dentro da pasta 'back', rode no terminal o comando 'yarn dev' ou 'npm dev' para subir os servidores back e front-end. 
+Dentro da pasta 'front' rode no terminal o comando 'yarn start' e depois dentro da pasta 'back', rode no terminal o comando 'yarn dev' ou 'npm dev' para subir os servidores back e front-end. 
 
 # Funcionalidades do sistema 
-
+- Usuário Admin(admin@gmail.com) e Senha Admin(123456); 
 - Criar churras; 
 - Adicionar participantes a um churras;
 - Deletar participante de um churras; 
