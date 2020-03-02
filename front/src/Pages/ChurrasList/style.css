@@ -1,0 +1,27 @@
+.containerListPeoples{
+  position: relative;
+  top: 100px;
+}
+
+.containerListPeoples h1{
+  background-color: #767676;
+  color: whitesmoke;
+  position: relative;
+  top: -100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.containerAddPeople{
+  position: relative;
+  margin: 0 auto;
+  text-align: center;
+  top: 150px;
+  width: 400px;
+  display: none;
+  background-color: #767676;
+}
+
+.containerAddPeople h2{
+  background-color: whitesmoke;
+}

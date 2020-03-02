@@ -1,0 +1,31 @@
+body{
+  background-image: url('../../Assets/Images/bbq.jpg');
+  background-position: center;
+  background-size: 50%;
+  background-color: black;
+}
+
+.containerOutFormCreate{
+  max-width: 40%;
+  height: 480px;
+  margin: 0 auto;
+  position: relative;
+  top: 150px;
+  background-color: rgba(128, 128, 128, 0.87);
+  text-align: center;
+}
+
+.containerInFormCreate{
+  position: relative;
+  top: 50px;
+}
+
+.inputPass{
+  margin: 0 auto;
+}
+
+button.buttonCreate{
+  width: 200px;
+  background-color: black;
+}
+

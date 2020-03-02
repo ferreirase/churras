@@ -6,9 +6,6 @@ import rotasUsuarios from './routes/usuarios.routes';
 import rotasChurras from './routes/churras.routes';
 import rotasParticipantes from './routes/participantes.routes';
 import rotaLogin from './routes/login.routes';
-import routeDisciplina from './routes/disciplinas.routes';
-import routeTurma from './routes/turmas.routes';
-import routeMatricula from './routes/matriculas.routes';
 import routeToken from './routes/token.routes';
 
 class App{
@@ -30,7 +27,7 @@ class App{
   }
 
   routes(){
-    this.server.use([rotasUsuarios, rotasChurras, rotasParticipantes,rotaLogin, routeDisciplina, routeTurma, routeMatricula, routeToken]);
+    this.server.use([rotasUsuarios, rotasChurras, rotasParticipantes,rotaLogin, routeToken]);
   }
 }
 

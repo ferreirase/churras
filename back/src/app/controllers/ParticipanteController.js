@@ -2,6 +2,7 @@
 import Participante from '../models/participante';
 import Churras from '../models/churras';
 import Cadastro from '../models/cadastro';
+import {format} from 'date-fns';
 
 class ParticipanteController{
   async adicionarParticipante(req, res){
@@ -13,7 +14,27 @@ class ParticipanteController{
     });
 
     if(participante){
-      return res.status(401).json({error: 'Participante já cadastrado'});
+      const cadastrado = await Cadastro.findOne({
+        where: {
+          participante_id: participante.id, 
+          churras_id: req.body.churras_id
+        }
+      });
+  
+      if(cadastrado){
+        return res.status(401).json({error: 'Participante já cadastrado nesse churras!'});
+      }
+
+      const novoCadastro = await Cadastro.create({
+        churras_id: req.body.churras_id, 
+        participante_id: participante.id
+      });
+  
+      const participantes = await Participante.findByPk(novoCadastro.participante_id);
+      const churras = await Churras.findByPk(novoCadastro.churras_id);
+  
+      return res.status(201).json({participantes, churras});
+
     }
 
     const novoParticipante = await Participante.create({
@@ -21,16 +42,6 @@ class ParticipanteController{
       contribuicao: req.body.contribuicao, 
       pago: req.body.pago
     });
-
-    const cadastrado = await Cadastro.findOne({
-      where: {
-        participante_id: novoParticipante.id
-      }
-    });
-
-    if(cadastrado){
-      return res.status(401).json({error: 'Participante já cadastrado nesse churras!'});
-    }
 
     const novoCadastro = await Cadastro.create({
       churras_id: req.body.churras_id, 
@@ -87,7 +98,14 @@ class ParticipanteController{
     if(!cadastros || cadastros.length === 0){
       return res.status(400).json({
         error: "Nenhum participante cadastrado!", 
-        dadosChurras
+        "dadosChurras": {
+          "id": dadosChurras.id,
+          "descricao": dadosChurras.descricao,
+          "data": format(dadosChurras.data, "dd/MM"),
+          "obs": dadosChurras.obs,
+          "valor_com_bebida": dadosChurras.valor_com_bebida,
+          "valor_sem_bebida": dadosChurras.valor_sem_bebida,
+        }
       });
     } 
 
@@ -101,6 +119,7 @@ class ParticipanteController{
       'totalParticipantes': cadastros.length, 
       'totalArrecadado': totalRecolta, 
       'descricao': cadastros[0].churras.descricao,
+      'data': format(cadastros[0].churras.data, "dd/MM"),
       'valorComBebida': cadastros[0].churras.valor_com_bebida,
       'valorSemBebida': cadastros[0].churras.valor_sem_bebida,
       cadastros

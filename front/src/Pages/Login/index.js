@@ -1,133 +1,95 @@
-import React, {Component} from 'react'; 
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import EmailInput from '../../components/Input/index';
-import PasswordInput from '../../components/Input/password';
-import ButtonLogin from '../../components/Button/index';
-import SpinnerButton from '../../components/Spinner/spinnerButton';
-import SpinnerPage from '../../components/Spinner/spinnerPage';
 import './style.css';
+
+import InputEmail from '../../Components/Input/index';
+import InputPass from '../../Components/InputPass/index';
+import Button from '../../Components/Button/index';
+import Loader from '../../Components/Loader/index';
+
 import axios from 'axios';
 import Swal from 'sweetalert';
 
-export default class Login extends Component{
+class Login extends Component{
 
   state = {
     email: '', 
-    password: '',
-    loader: true,
+    password: '', 
     loading: false
   };
 
   componentDidMount = () => {
     localStorage.removeItem('token');
-    setTimeout(() => {
-      this.setState({loader: false});
-    }, 1000);
   }
 
-  clearInputs = () => {
-    this.setState({
-      email: '', 
-      password: ''
-    });
-  }
-
-  handleChangeEmail = e => {
-    e.preventDefault();
+  handleEmailChange = e => {
     this.setState({email: e.target.value});
   }
 
-  handleChangePassword = e => {
-    e.preventDefault();
+  handlePassChange = e => {
     this.setState({password: e.target.value});
   }
 
-  handleClickButton =  () => {
+  handleClickLogin = async (e) => {
+    e.preventDefault();
+    
     this.setState({loading: true});
 
-    if(!this.state.email || !this.state.password){
-      this.setState({loading: false});
-      Swal("Informe email e senha", {
-        buttons: false, 
-        timer: 1000, 
-        icon: 'error'
-      });
-    }else{
+    setTimeout(async () => {
       try {
-        setTimeout(async () => {
+        await axios.post('http://localhost:3334/login', {
+          "email": this.state.email, 
+          "senha": this.state.password
+        }).then((response) => {
+          localStorage.setItem('token', response.data.token);
           this.setState({loading: false});
+          window.location.href = '/app';
   
-          await axios.post("http://localhost:3334/login", {
-            "email": this.state.email,
-            "senha": this.state.password
-          }).then(function (response){
-            localStorage.setItem('token', response.data.token);
-            window.location.href = "http://localhost:8080";
-          }).catch(function (err) {
-            if(err.response === undefined){
-              Swal("Erro na Conexão!", {
-                buttons: false, 
-                timer: 2000, 
-                icon: 'error'
-              });
-            }else{
-              Swal(`${err.response.data.error}`, {
-                buttons: false, 
-                timer: 2000, 
-                icon: 'error'
-              });
-            }
-          });
-        }, 1000);
+        }).catch((err) => {
+          if(err.response === undefined){
+            this.setState({loading: false});
   
-      } catch (error) {
-        Swal(`${error}`, {
-          buttons: false, 
-          timer: 2000, 
-          icon: 'error'
+            Swal("Erro na conexão!", {
+              buttons: false,
+              timer: 2000,
+              icon: 'error'
+            });
+          }else{
+            this.setState({loading: false});
+            Swal(`${err.response.data.error}`, {
+              buttons: false,
+              timer: 2000,
+              icon: 'error'
+            });
+          }
         });
-      }
+      } catch (error) {
+          this.setState({loading: false});
+          Swal(`${error}`, {
+            buttons: false,
+            timer: 2000,
+            icon: 'error'
+          });
+        }
+    }, 1500);
     }
-    
-  }
 
   render(){
 
-    const logo = require('../../assets/partyBBQ.jpg');
-    const {loading, loader} = this.state;
-    
     return (
-      loader ? <SpinnerPage /> : 
-      <>
-        <div className="container">
-        <div className="containerLogo">
-          <img src={logo} alt="logo" className="logo"/>
-        </div>
-        <h1 className="titleLogin">Agenda de Churras</h1>
-        <div className="containerInputs">
-          <EmailInput nameInput="E-mail" 
-            valueInput={this.state.email} 
-            onchange={this.handleChangeEmail}  
+      <div className="containerOutFormLogin">
+        <div className="containerInFormLogin">
+          <InputEmail textInput="E-mail" onchange={this.handleEmailChange} value={this.state.email} /> <br/>
+          <InputPass textInput="Password" onchange={this.handlePassChange} value={this.state.password} classname="inputPass"/>
+          <Button classname="buttonLogin" 
+            textButton={this.state.loading ? <Loader /> : "Login"} 
+            onclick={this.handleClickLogin} 
           />
-          <PasswordInput nameInput="Password" 
-            valueInput={this.state.password}
-            onchange={this.handleChangePassword}
-          /> <br/> <br/>
-          <ButtonLogin nameButton={loading ? <SpinnerButton /> : "Entrar"} 
-            onClick={this.handleClickButton}
-          /> <br/> <br/> <br/>
-          <br/> <small>Não tem cadastro? <Link to="/register"><b>Clique AQUI</b></Link>.</small>
-          <div className="trincaLogo">
-            <p className="pTri">TRI</p>
-            <p className="pNca">NCA</p>
-          </div> <br/>
+          <small>Não tem cadastro? <Link to='/createAccount'>Clique aqui.</Link></small>
         </div>
-        </div>
-      </>
+      </div>
     )
   }
 }
 
-/**
- * 
- */
+export default Login;

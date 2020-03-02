@@ -1,67 +1,31 @@
-a{
-  text-decoration: none;
-  color: #767676;
+body{
+  background-image: url('../../Assets/Images/6067.jpg');
+  background-position: center;
+  background-size: 50%;
+  background-color: black;
 }
 
-a:active{
-  color: #f5543e;
-}
-
-a:visited{
-  color: #767676;
-}
-
-.titleLogin{
-  position: relative;
-  text-align: center;
-  color: #666666;
-}
-
-.containerInputs{
-  position: relative;
+.containerOutFormLogin{
+  max-width: 40%;
+  height: 300px;
   margin: 0 auto;
-  max-width: 400px;
+  position: relative;
+  top: 150px;
+  background-color: rgba(128, 128, 128, 0.87);
   text-align: center;
-  background-color: white;
 }
 
-.logo{
+.containerInFormLogin{
   position: relative;
-  -webkit-box-shadow: 0px 7px 25px 16px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 7px 25px 16px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 25px 0px rgba(0,0,0,0.75);
+  top: 50px;
 }
 
-.trincaLogo{
+.inputPass{
   margin: 0 auto;
-  height: 40px;
-  width: 40px;
-  border: solid 2px #6666;
 }
 
-.pTri{
-  position: relative;
-  top: -5px;
-  font-weight: bold;
-  font-size: 12px;
-  letter-spacing: 5px;
-  color: #6666;
-  left: 2px;
+button.buttonLogin{
+  width: 200px;
+  background-color: black;
 }
 
-.pNca{
-  position: relative;
-  top: -16px;
-  font-weight: bold;
-  font-size: 12px;
-  letter-spacing: 4px;
-  color: #6666;
-  left: 2px;
-}
-
-.containerInputs small{
-  position: relative;
-  float: left;
-  left: 102px;
-  color: #666666;
-}

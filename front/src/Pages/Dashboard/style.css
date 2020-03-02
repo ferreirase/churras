@@ -1,0 +1,56 @@
+.containerListChurras{
+  position: relative;
+  top: 100px;
+  margin: 0 auto;
+  max-width: 50%;
+}
+
+.flex-container {
+  max-width: 50%;
+  margin: 0 auto;
+  justify-content: left;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-container > div {
+  width: 150px;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}
+
+.containterFormCreateChurras{
+  display: none;
+  position: absolute;
+  height: 550px;
+  top: 100px;
+  left: 10%;
+  width: 400px;
+  text-align: center;
+  background-color: #767676;
+}
+
+.containterFormCreateChurras input{
+  font-weight: bold;
+  color: whitesmoke;
+}
+
+.containterFormCreateChurras button{
+  width: 200px;
+}
+
+.containterFormCreateChurras h3{
+  position: relative;
+  top: 10px;
+  color: whitesmoke;
+  margin: 0 auto;
+  max-width: 50%;
+}
+
+.inputsCreateChurras{
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
